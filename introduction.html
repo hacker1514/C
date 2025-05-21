@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>WELCOME TO NIRANJAN</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+      background: black;
+    }
+
+    /* ENTER SCREEN */
+    #enter-screen, #main-content {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+
+    #enter-screen {
+      background: linear-gradient(270deg, #000000, #1a1a1a, #111111);
+      background-size: 600% 600%;
+      animation: backgroundGlow 10s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      z-index: 10;
+    }
+
+    @keyframes backgroundGlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .cube-background {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .cube {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: radial-gradient(circle, #39ff14, #00ffcc);
+      opacity: 0.5;
+      border-radius: 8px;
+      animation: floatCube 15s linear infinite;
+    }
+
+    .cube:nth-child(even) {
+      background: radial-gradient(circle, #ff00cc, #3333ff);
+    }
+
+    @keyframes floatCube {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+    }
+
+    #enterBtn {
+      background: linear-gradient(45deg, #00ffcc, #39ff14);
+      color: black;
+      font-size: 24px;
+      font-weight: bold;
+      padding: 20px 50px;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 0 20px #00ffcc;
+      transition: 0.3s ease-in-out;
+    }
+
+    #enterBtn:hover {
+      box-shadow: 0 0 40px #39ff14;
+      transform: scale(1.05);
+    }
+
+    /* MAIN CONTENT */
+    #main-content {
+      display: none;
+      background: black;
+      color: orange;
+    }
+
+    .container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    .line {
+      font-size: 50px;
+      color: orange;
+      text-shadow: 0 0 20px #ff4500, 0 0 40px #ff8c00;
+      white-space: nowrap;
+    }
+
+    .letter {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(-300px) scale(0.5);
+      animation: dropIn 0.5s forwards;
+    }
+
+    @keyframes dropIn {
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ENTER SCREEN -->
+  <div id="enter-screen">
+    <button id="enterBtn">ENTER</button>
+    <div class="cube-background" id="cubeBg"></div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div id="main-content">
+    <audio id="myAudio">
+      <source src="https://raw.githubusercontent.com/Niranjan164/m/main/AUD-20250422-WA0000_010915..mp3" type="audio/mpeg">
+    </audio>
+    <div class="container">
+      <div class="line" id="line1"></div>
+      <div class="line" id="line2"></div>
+    </div>
+  </div>
+
+  <script>
+    const enterBtn = document.getElementById("enterBtn");
+    const enterScreen = document.getElementById("enter-screen");
+    const mainContent = document.getElementById("main-content");
+    const line1 = document.getElementById("line1");
+    const line2 = document.getElementById("line2");
+    const audio = document.getElementById("myAudio");
+
+    const text1 = "WELCOME TO NIRANJAN";
+    const text2 = "HACKING";
+
+    const totalTime = 21; // seconds
+    const totalLetters = text1.replace(/ /g, "").length + text2.replace(/ /g, "").length;
+    const timePerLetter = totalTime / totalLetters;
+
+    // CUBES IN BG
+    const cubeBg = document.getElementById("cubeBg");
+    for (let i = 0; i < 40; i++) {
+      const cube = document.createElement("div");
+      cube.className = "cube";
+      cube.style.left = `${Math.random() * 100}%`;
+      cube.style.animationDuration = `${10 + Math.random() * 10}s`;
+      cube.style.top = `${Math.random() * 100}vh`;
+      cubeBg.appendChild(cube);
+    }
+
+    enterBtn.addEventListener("click", () => {
+      enterScreen.style.display = "none";
+      mainContent.style.display = "block";
+      audio.play();
+
+      animateLine(line1, text1, 0);
+      animateLine(line2, text2, text1.replace(/ /g, "").length * timePerLetter);
+    });
+
+    function animateLine(element, text, startDelay) {
+      let delay = startDelay;
+      for (let char of text) {
+        const span = document.createElement("span");
+        span.textContent = char;
+        span.className = "letter";
+        span.style.animationDelay = `${delay}s`;
+        element.appendChild(span);
+        if (char !== " ") delay += timePerLetter;
+        else element.appendChild(document.createTextNode(" "));
+      }
+    }
+  </script>
+</body>
+</html>
