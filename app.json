@@ -1,0 +1,15 @@
+{
+  "name":"snack and lader",
+  "short_name":"Snack & Lader",
+  "start_url":"./app.html",
+  "display":"fullscreen",
+  "theme":"#FFFFFF",
+  "background_color":"#FFFFFF",
+  "icons":[
+          {
+                  "src":"app.png",
+                  "type":"image/png",
+                  "sizes":"192x192"
+          }
+  ]
+}
