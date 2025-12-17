@@ -1,0 +1,19 @@
+{
+    "name": "PERSONAL TRAINNER",
+    "short_name": "MY TRAINNER",
+    "display": "fullscreen",
+    "start_url": "./k.html",                                                                                      "background_color": "#ffffff",
+    "theme_color": "#ffffff",
+    "icons": [
+        {
+            "src": "k.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "k.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ]
+}
