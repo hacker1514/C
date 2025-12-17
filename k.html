@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+        <head>
+                <title>NIRANJAN CREATIONS</title>
+                <link rel="manifest" href="k.json">
+        </head>
+        <body style="background-color:black;" onload="i()">
+                <center>
+                        <button style="color:lime;border:1px solid lime;font-size:35px;font-weight:10px;background-color:black;padding:10px;" onclick="f()">LAUNCH</button>
+                        </br></br></br>
+                        <div style="color:#lime;font-size:35px;" id="o"></div>
+                </center>
+                        <script>
+                                        let p;
+                        window.addEventListener('beforeinstallprompt',e=>{
+                                e.preventDefault();
+                                p=e;
+                        });
+                        function install(){
+                                localStorage.setItem('i',1);
+                                if(p){
+                                        p.prompt();
+                                }
+                        }
+                        if('serviceWorker' in navigator){
+                                navigator.serviceWorker.register('k.js');
+                        }
+                        function i(){
+                                let o=document.getElementById("o");
+                                let c=localStorage.getItem('i');
+                                if(c==null){
+                                o.innerHTML="<button onclick='install()' style='color:lime;background-color:black;border:1px solid lime;font-size:35px;width:300px;padding:10px;'>INSTALL </button>";
+                        }
+                        }
+                                function f(){
+                                        localStorage.clear();
+                                        window.open("https://ai.studio/apps/drive/1RAkKXgiMzqsfQH3kahg2qjIgO2DV-E-1?fullscreenApplet=true","_self");
+                                }
+                        </script>
+        </body>
+</html>
